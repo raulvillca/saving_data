@@ -1,0 +1,107 @@
+#publish contract
+
+casper-client put-deploy -n http://16.162.124.124:7777 \
+--chain-name casper-test --secret-key /Users/raulvillca/n/TestUser_key.pem \
+--session-path /Users/raulvillca/n/saving_key/target/wasm32-unknown-unknown/release/contract.wasm \
+--payment-amount 30000000000
+
+#calling command
+
+# Write store_saving
+casper-client put-deploy \
+    --session-name SAVING_ARG_CONTRACT_HASH_NAME \
+    --session-entry-point store_string \
+    --session-arg=name:"string='test'" \
+    --session-arg=value:"string='your test string here'" \
+    --payment-amount 1000000000 \
+    --chain-name casper-test \
+    --node-address http://16.162.124.124:7777 \
+    --secret-key /Users/raulvillca/n/TestUser_key.pem
+
+casper-client put-deploy \
+    --session-name SAVING_ARG_CONTRACT_HASH_NAME \
+    --session-entry-point remove_key \
+    --session-arg=name:"string='test'" \
+    --payment-amount 1000000000 \
+    --chain-name casper-test \
+    --node-address http://16.162.124.124:7777 \
+    --secret-key /Users/raulvillca/n/TestUser_key.pem
+
+casper-client put-deploy \
+    --session-name SAVING_ARG_CONTRACT_HASH_NAME \
+    --session-entry-point create_dictionary \
+    --payment-amount 1000000000 \
+    --chain-name casper-test \
+    --node-address http://16.162.124.124:7777 \
+    --secret-key /Users/raulvillca/n/TestUser_key.pem
+
+casper-client put-deploy \
+    --session-name SAVING_ARG_CONTRACT_HASH_NAME \
+    --session-entry-point add_string \
+    --session-arg=name:"string='test'" \
+    --session-arg=value:"string='your test string here'" \
+    --payment-amount 1000000000 \
+    --chain-name casper-test \
+    --node-address http://16.162.124.124:7777 \
+    --secret-key /Users/raulvillca/n/TestUser_key.pem
+
+casper-client put-deploy \
+    --session-name SAVING_ARG_CONTRACT_HASH_NAME \
+    --session-entry-point get_string \
+    --session-arg=name:"string='test'" \
+    --payment-amount 1000000000 \
+    --chain-name casper-test \
+    --node-address http://16.162.124.124:7777 \
+    --secret-key /Users/raulvillca/n/TestUser_key.pem
+
+casper-client put-deploy \
+    --session-name SAVING_ARG_CONTRACT_HASH_NAME \
+    --session-entry-point add_item \
+    --session-arg=value:"string='adding item'" \
+    --payment-amount 1000000000 \
+    --chain-name casper-test \
+    --node-address http://16.162.124.124:7777 \
+    --secret-key /Users/raulvillca/n/TestUser_key.pem
+
+
+
+
+casper-client put-deploy \
+    --session-name SAVING_ARG_CONTRACT_HASH_NAME \
+    --session-entry-point create_dictionary_array \
+    --session-arg=name:"string='test'" \
+    --payment-amount 1000000000 \
+    --chain-name casper-test \
+    --node-address http://16.162.124.124:7777 \
+    --secret-key /Users/raulvillca/n/TestUser_key.pem
+
+casper-client put-deploy \
+    --session-name SAVING_ARG_CONTRACT_HASH_NAME \
+    --session-entry-point push_item \
+    --session-arg=name:"string='test'" \
+    --session-arg=value:"string='test de cosas'" \
+    --payment-amount 1000000000 \
+    --chain-name casper-test \
+    --node-address http://16.162.124.124:7777 \
+    --secret-key /Users/raulvillca/n/TestUser_key.pem
+
+casper-client put-deploy \
+    --session-name SAVING_ARG_CONTRACT_HASH_NAME \
+    --session-entry-point get_item \
+    --session-arg=name:"string='test'" \
+    --payment-amount 1000000000 \
+    --chain-name casper-test \
+    --node-address http://16.162.124.124:7777 \
+    --secret-key /Users/raulvillca/n/TestUser_key.pem
+
+
+
+#calling result
+
+casper-client get-state-root-hash --node-address http://16.162.124.124:7777
+
+#take the state_root_hash
+
+casper-client query-global-state --node-address http://16.162.124.124:7777 \
+    --state-root-hash b2d03df8a426501aaa018f32b06d94967e38d3c39f5ee2a06013b4003a5237fa \
+    --key 013b8bd1f2bfc7241d69e7cba488bfca52e29d2836e1a8e62035719aee0b81f5f1 -q "SAVING_ARG_CONTRACT_HASH_NAME"
